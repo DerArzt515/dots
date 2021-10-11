@@ -9,6 +9,8 @@ return require('packer').startup(function()
 
     use 'tpope/vim-fugitive'
 
+    use 'tpope/vim-vinegar'
+
 end)
 
 -- w.colorscheme = onedark
