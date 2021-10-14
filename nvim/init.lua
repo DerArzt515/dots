@@ -1,6 +1,8 @@
 local o = vim.o -- for the global options
 local w = vim.wo -- for the window local options
 local b = vim.bo -- for the buffer local options
+local cmd = vim.cmd
+local g = vim.g
 
 local utils = require('utils')
 
@@ -17,6 +19,8 @@ require('packer').startup(function()
 
     use 'tpope/vim-vinegar'
 
+    use 'nvim-lua/plenary.nvim'
+
     use({ "hrsh7th/nvim-compe", requires = { { "hrsh7th/vim-vsnip" } } })
     use({ "mfussenegger/nvim-dap" })
     use({ "scalameta/nvim-metals" })
@@ -25,6 +29,14 @@ end)
 
 vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
 vim.opt_global.shortmess:remove("F"):append("c")
+
+local function map(mode, lhs, rhs, opts)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
 
 -- LSP
 map("n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>")
