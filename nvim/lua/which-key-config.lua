@@ -94,7 +94,7 @@ local mapping = {
 	["<leader>ga"] = {name = "Add"},
 	["<leader>gaa"] = {":G add --all<CR>", "all"},
         ["<leader>gc"] = {":G commit -m \"", "commit"},
-        ["<leader>gp"] = {":G push", "push"},
+        ["<leader>gp"] = {":G push<CR>", "push"},
 }
 
 
