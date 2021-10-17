@@ -91,7 +91,10 @@ local mapping = {
         -- Git
 	["<leader>g"] = { name = "Git"},
 	["<leader>gs"] = {":G status<CR>", "Status"},
-        ["<leader>gc"] = {":G commit -m \"", "commit"}
+	["<leader>ga"] = {name = "Add"},
+	["<leader>gaa"] = {":G add --all<CR>", "all"},
+        ["<leader>gc"] = {":G commit -m \"", "commit"},
+        ["<leader>gp"] = {":G push", "push"},
 }
 
 
