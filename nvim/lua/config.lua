@@ -11,4 +11,5 @@ local set_window_local = vim.wo
 setbufferlocal.expandtab = true
 setbufferlocal.shiftwidth = 2
 setbufferlocal.softtabstop = 2
+setglobal.clipboard = 'unnamed'
 

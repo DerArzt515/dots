@@ -17,8 +17,10 @@ return require('packer').startup(function()
 	  'romgrk/barbar.nvim',
 	  requires = {'kyazdani42/nvim-web-devicons'}
   }
-
-  use 'neovim/nvim-lspconfig'
+  use {
+      'neovim/nvim-lspconfig',
+      'williamboman/nvim-lsp-installer',
+  }
   use "folke/which-key.nvim"
 
   use {

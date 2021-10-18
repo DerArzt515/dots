@@ -115,15 +115,6 @@ local visual_opts = {
 	nowait = false,
 }
 
-local term_opts = {
-	mode = "t",
-	prefix="",
-	buffer = nil,
-	silent = true,
-	noremap = true,
-	nowait = false,
-}
-
 which_key.register(mapping, normal_opts)
 which_key.register(mapping, visual_opts)
 
