@@ -13,3 +13,9 @@ setbufferlocal.shiftwidth = 2
 setbufferlocal.softtabstop = 2
 setglobal.clipboard = 'unnamed'
 
+vim.api.nvim_command('set nocompatible')
+vim.api.nvim_command('filetype plugin on')
+vim.api.nvim_command('syntax on')
+vim.api.nvim_command('set relativenumber')
+
+vim.api.nvim_command('set autochdir')

@@ -67,7 +67,7 @@ local mapping = {
 	["<leader>bn"] = {":bnext<CR>", "Next Buffer"},
 	["<leader>bp"] = {":bprevious<CR>", "Previous Buffer"},
 	["<leader>bk"] = {":BufferClose<CR>", "Kill Buffer"},
-	["<leader>bb"] = {":buffer <TAB>", "Go To Buffer"},
+	["<leader>bb"] = {":Telescope buffers<CR>", "Go To Buffer"},
 
 	-- commentary
 	["<leader>/"] = {":Commentary<CR>", "Comment"},
@@ -82,7 +82,7 @@ local mapping = {
 	["<leader>wl"] = {"<C-w>l", "To Window Right"},
 
         -- Explorer
-	["<leader>e"] = {":NvimTreeToggle<CR>", "Comment"},
+	["<leader>e"] = {":lua require('telescope.builtin').file_browser{}<CR>", "File Browser"},
         
         -- Search
 	["<leader>s"] = { name = "search"},
@@ -95,8 +95,33 @@ local mapping = {
 	["<leader>gaa"] = {":G add --all<CR>", "all"},
         ["<leader>gc"] = {":G commit -m \"", "commit"},
         ["<leader>gp"] = {":G push<CR>", "push"},
-}
 
+	-- find
+	["<leader>f"] = { name = "Find"},
+	["<leader>ff"] = {":DashboardFindFile<CR>", "Find Files"},
+	["<leader>fg"] = {":DashboardFindWord<CR>", "Grep"},
+	--["<leader>fb"] = {":Telescope buffers<CR>", "Find Buffer"},
+	["<leader>fh"] = {":Telescope help_tags<CR>", "Find help tags"},
+	["<leader>fp"] = {":edit ~/.config/nvim/init.lua<CR>:cd ~/.config/nvim/<CR>", "Open Config"},
+
+
+	["<leader>l"] = {name = "LSP"},
+	["<leader>lg"] = {name = "Go To"},
+	["<leader>lgd"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "def"},
+	["<leader>lgw"] = {"<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "workspace symbol"},
+	["<leader>lgD"] = {"<cmd>lua vim.lsp.buf.document_symbol()<CR>", "document symbol"},
+	["<leader>lgr"] = {"<cmd>lua vim.lsp.buf.references()<CR>", "references"},
+	["<leader>lgi"] = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "implmentation"},
+	--["<leader>lK"] = {"<cmd>lua vim.lsp.buf.hover()<CR>"},
+	["<leader>lr"] = {"<cmd>lua vim.lsp.buf.rename()<CR>", "rename"},
+	["<leader>lf"] = {"<cmd>lua vim.lsp.buf.formatting()<CR>", "formatting"},
+	["<leader>lc"] = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "code action"},
+	["<leader>lw"] = {"<cmd>lua require\"metals\".worksheet_hover()<CR>", "worksheet hover"},
+	["<leader>la"] = {"<cmd>lua require\"metals\".open_all_diagnostics()<CR>", "open all diagnostics"},
+	["<leader>ld"] = {"<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", "open buffer diagnostics"},
+	-- ["[c"] = {"<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>"},
+	--["]c"] = {"<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>"},
+}
 
 local normal_opts = {
 	mode = "n",
