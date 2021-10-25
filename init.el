@@ -67,14 +67,21 @@
 (menu-bar-mode -1)            ; Disable the menu bar
 
 (use-package evil
+  :init
+	    (setq evil-want-keybinding nil)
              :config
-             (evil-mode 1)
              (evil-global-set-key 'motion "j" 'evil-next-visual-line)
              (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
              (evil-set-initial-state 'messages-buffer-mode 'normal)
              (evil-set-initial-state 'dashboard-mode 'normal)
-             )
+             (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 ;; make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
