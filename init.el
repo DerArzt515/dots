@@ -1,4 +1,4 @@
-(defvar arzt/editor-theme 'doom-badger t)
+(defvar arzt/editor-theme 'doom-dracula t)
 
 ;; You will most likely need to adjust this font size for your system!
 (defvar arzt/gdefault-font-size 180)
@@ -140,25 +140,25 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Set up the visible bell
-;;(setq visible-bell t)
+  ;;(setq visible-bell t)
 
-(use-package ivy
-	  :diminish 
-	  :bind (("C-s" . swiperc)
-		 :map ivy-minibuffer-map
-		 ("TAB" . ivy-alt-done) 
-		 ("C-l" . ivy-alt-done) 
-		 ("C-j" . ivy-next-line)
-		 ("C-k" . ivy-previous-line)
-		 :map ivy-switch-buffer-map
-		 ("C-k" . ivy-ivy-previous-line)
-		 ("C-l" . ivy-done)
-		 ("C-d" . ivy-ivy-switch-buffer-kill)
-		 :map ivy-reverse-i-search-map
-		 ("C-k" . ivy-previous-line)
-		 ("C-d" . ivy-ivy-switch-buffer-kill))
-	  :config
-	  (ivy-mode 1))
+  (use-package ivy
+	    :diminish 
+	    :bind (("C-s" . swiperc)
+		   :map ivy-minibuffer-map
+		   ("TAB" . ivy-alt-done) 
+		   ("C-l" . ivy-alt-done) 
+		   ("C-j" . ivy-next-line)
+		   ("C-k" . ivy-previous-line)
+		   :map ivy-switch-buffer-map
+		   ("C-k" . ivy-ivy-previous-line)
+		   ("C-l" . ivy-done)
+		   ("C-d" . ivy-ivy-switch-buffer-kill)
+		   :map ivy-reverse-i-search-map
+		   ("C-k" . ivy-previous-line)
+		   ("C-d" . ivy-ivy-switch-buffer-kill))
+	    :config
+	    (ivy-mode 1))
 
 (use-package ivy-rich
   :init
@@ -174,11 +174,17 @@
   (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with ^
 
 (use-package which-key
-  :init (which-key-mode)
-  :defer 1
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 0.1))
+	  :init (which-key-mode)
+	  :defer 1
+  :after evil
+	  :diminish which-key-mode
+	  :config
+	  (setq which-key-idle-delay 0.1
+		which-key-side-window-location 'bottom
+    which-key-side-window-max-height 0.25
+  which-key-show-remaining-keys t
+which-key-add-column-padding 5)
+	  (which-key-setup-minibuffer))
 
 (use-package helpful
   :ensure t
@@ -263,7 +269,11 @@
 
  ;; COMMAND
  "SPC" '(counsel-M-x :which-key ":")
- "!" '(shell-command :which-key "Shell CMD"))
+ "!" '(shell-command :which-key "Shell CMD")
+
+;; Open
+"o" '(:ignore t :which-key "open")
+"ot" '(vterm :which-key "vterm"))
 
 (use-package magit
   :after general
@@ -391,7 +401,6 @@
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  ;(org-superstar-remove-leading-stars t)
  (setq org-hide-leading-stars nil)
  ;; This line is necessary.
  (setq org-superstar-leading-bullet ?\s)
@@ -426,4 +435,71 @@
 (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
 (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
 
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
+
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	 (python-mode . lsp-deferred)
+	 ;; if you want which-key integration
+	 (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred))
+
+;; optionally
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+;; if you are ivy user
+(use-package lsp-ivy
+  :commands lsp-ivy-workspace-symbol)
+
+;(use-package lsp-treemacs
+;  :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+(use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;; optional if you want which-key integration
+(use-package which-key
+    :config
+    (which-key-mode))
+
+(use-package python-mode
+    :ensure nil
+    :mode "\\.py\\'"
+    :hook (python-mode . lsp-deferred)
+    :custom (python-shell-interpereter "python3")
+)
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+			  (require 'lsp-pyright)
+			  (lsp))))  ; or lsp-deferred
+
 (fset 'yes-or-no-p 'y-or-n-p)
+
+(use-package exec-path-from-shell)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(exec-path-from-shell which-key vterm use-package rainbow-delimiters python-mode projectile pipenv org-superstar org-roam no-littering magit lsp-ui lsp-pyright lsp-ivy ivy-rich helpful general evil-goggles evil-commentary evil-collection doom-themes doom-modeline diff-hl dashboard dap-mode counsel company auto-package-update all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-goggles-default-face ((t (:foreground "#002A82" :background "#82AAFF"))))
+ '(evil-goggles-delete-face ((t (:foreground "#620707" :background "#F57373"))))
+ '(evil-goggles-paste-face ((t (:foreground "#426214" :background "#C3E88D")))))
